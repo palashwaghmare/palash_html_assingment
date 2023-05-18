@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Navigation Bar</title>
+</head>
+
+<body>
+    <script>
+        const navbar = document.createElement('div');
+        navbar.style.backgroundColor = '#333';
+        navbar.style.color = '#fff';
+        navbar.style.display = 'flex';
+        navbar.style.justifyContent = 'space-between';
+        navbar.style.padding = '20px';
+
+        const about = document.createElement('a');
+        about.setAttribute('href', '#');
+        about.style.color = '#fff';
+        about.style.textDecoration = 'none';
+        about.style.margin = '0 10px';
+        about.textContent = 'About';
+
+        const home = document.createElement('a');
+        home.setAttribute('href', '#');
+        home.style.color = '#fff';
+        home.style.textDecoration = 'none';
+        home.style.margin = '0 10px';
+        home.textContent = 'Home';
+
+        const signOut = document.createElement('a');
+        signOut.setAttribute('href', '#');
+        signOut.style.color = '#fff';
+        signOut.style.textDecoration = 'none';
+        signOut.style.margin = '0 10px';
+        signOut.textContent = 'Sign Out';
+
+        const contact = document.createElement('a');
+        contact.setAttribute('href', '#');
+        contact.style.color = '#fff';
+        contact.style.textDecoration = 'none';
+        contact.style.margin = '0 10px';
+        contact.textContent = 'Contact';
+
+
+        const signIn = document.createElement('a');
+        signIn.setAttribute('href', '#');
+        signIn.style.color = '#fff';
+        signIn.style.textDecoration = 'none';
+        signIn.style.margin = '0 10px';
+        signIn.textContent = 'Sign In';
+
+        
+            
+        navbar.appendChild(home);
+        navbar.appendChild(about);
+        navbar.appendChild(contact);
+        navbar.appendChild(signIn);
+        navbar.appendChild(signOut)
+
+        document.body.appendChild(navbar);</script>
+</body>
+
+</html>
