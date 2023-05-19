@@ -1,0 +1,68 @@
+let bookPrices = [567.50, 345.40, 767.45, 567.60, 600, 400, 230, 450, 350.50, 560.40, 800.56, 890.9];
+
+//1. Find all prices less than 500
+let findPricesLessThan500 = bookPrices.filter(price => price < 500);
+console.log("Prices less than 500 are : ", findPricesLessThan500);
+
+console.log("-----------------------------------------------------------")
+
+//2. Find the first price greater than 600
+let firstPriceGreaterThan600 = bookPrices.find(price => price > 600);
+console.log("First price greater than 600 are :", firstPriceGreaterThan600);
+
+console.log("-----------------------------------------------------------")
+
+//3. Find all prices between 500 and 600
+let pricesBetween500And600 = bookPrices.filter(price => price > 500 && price < 600);
+console.log("Prices between 500 and 600 are :", pricesBetween500And600);
+
+console.log("-----------------------------------------------------------")
+
+//4. Display sum of all prices
+let findSumOfAllPrices = bookPrices.reduce((sum, price) => sum + price, 0);
+console.log("Sum of all prices are :", findSumOfAllPrices);
+
+console.log("-----------------------------------------------------------")
+
+//5. Display sum of all prices but initial value of sum should be 100
+let sumOfAllPricesStartingFrom100 = bookPrices.reduce((sum, price) => sum + price, 100);
+console.log("Sum of all prices starting from 100:", sumOfAllPricesStartingFrom100);
+
+console.log("-----------------------------------------------------------")
+
+// 6. Double every price from array and display new prices
+let doubledPrices = bookPrices.map(price => price + price);
+console.log("Doubled prices:", doubledPrices);
+
+console.log("-----------------------------------------------------------")
+
+// 7. Display sum of prices which are less than 500
+let findSumOfPricesLessThan500 = bookPrices.reduce((sum, price) => price < 500 ? sum + price : sum, 0);
+console.log("Sum of prices less than 500:", findSumOfPricesLessThan500);
+
+console.log("-----------------------------------------------------------")
+console.log("-----------------------------------------------------------")
+
+const bookNames = ['Learn Java', 'Basics of Python', 'Advanced java Concepts', 'Web Basics', 'Easy Learning Python', 'Web Fundamentals', 'JAVA Fundamentals'];
+
+//1. Find all books starting with 'Web'
+let findBooksStartingWithWeb = bookNames.filter(name => name.startsWith('Web'));
+console.log("Books starting with 'Web':", findBooksStartingWithWeb);
+
+console.log("-----------------------------------------------------------")
+
+//2. Find all books which are related to Java
+let javaBooks = bookNames.filter(name => name.toLowerCase().includes('java'));
+console.log("Books Java:", javaBooks);
+
+console.log("-----------------------------------------------------------")
+
+//3. Prepend 'Neo-' to every Book Name and display new book names
+let newBookNames = bookNames.map(name => 'Neo-' + name);
+console.log("New Book Names:", newBookNames);
+
+console.log("-----------------------------------------------------------")
+
+//4. Display sum of the length of every book name
+let sumOfBookNameLength = bookNames.reduce((sum, name) => sum + name.length, 0);
+console.log("Sum of book name lengths:", sumOfBookNameLength);

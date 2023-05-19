@@ -4,38 +4,54 @@
 <head>
     <title>Navigation Bar</title>
 </head>
+<style>
+
+
+    img {
+        border-radius: 50%;
+        opacity: 0.5;
+
+    }
+
+    
+</style>
 
 <body>
+
+    <h2><img src="https://imgnew.outlookindia.com/public/uploads/articles/2022/1/3/neo1.png" alt="Neosoft" width="500" height="500"></h2>
+
+    
+
     <script>
-        const navbar = document.createElement('div');
+        const navbar = document.createElement('nav');
         navbar.style.backgroundColor = '#333';
         navbar.style.color = '#fff';
         navbar.style.display = 'flex';
-        navbar.style.justifyContent = 'space-between';
+        navbar.style.justifyContent = 'space-around';
         navbar.style.padding = '20px';
 
-        const about = document.createElement('a');
+        const about = document.createElement('ul');
         about.setAttribute('href', '#');
         about.style.color = '#fff';
         about.style.textDecoration = 'none';
         about.style.margin = '0 10px';
         about.textContent = 'About';
 
-        const home = document.createElement('a');
+        const home = document.createElement('ul');
         home.setAttribute('href', '#');
         home.style.color = '#fff';
         home.style.textDecoration = 'none';
         home.style.margin = '0 10px';
         home.textContent = 'Home';
 
-        const signOut = document.createElement('a');
+        const signOut = document.createElement('ul');
         signOut.setAttribute('href', '#');
         signOut.style.color = '#fff';
         signOut.style.textDecoration = 'none';
         signOut.style.margin = '0 10px';
         signOut.textContent = 'Sign Out';
 
-        const contact = document.createElement('a');
+        const contact = document.createElement('ul');
         contact.setAttribute('href', '#');
         contact.style.color = '#fff';
         contact.style.textDecoration = 'none';
@@ -43,15 +59,15 @@
         contact.textContent = 'Contact';
 
 
-        const signIn = document.createElement('a');
+        const signIn = document.createElement('ul');
         signIn.setAttribute('href', '#');
         signIn.style.color = '#fff';
         signIn.style.textDecoration = 'none';
         signIn.style.margin = '0 10px';
         signIn.textContent = 'Sign In';
 
-        
-            
+
+
         navbar.appendChild(home);
         navbar.appendChild(about);
         navbar.appendChild(contact);
