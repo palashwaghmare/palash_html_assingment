@@ -1,0 +1,76 @@
+using System;
+
+namespace BankIntrestAssingment
+{
+    public delegate double Interest(double P, double R, double T);
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            // Step 1: Create a jagged array Customers that holds the details of minimum 2 customers
+            double[][] customers = new double[2][];
+
+            // Customer 1 details: P = 1000, R = 5%, T = 2 years
+            customers[0] = new double[] { 1000, 5, 2 };
+
+            // Customer 2 details: P = 2000, R = 7%, T = 3 years
+            customers[1] = new double[] { 2000, 7, 3 };
+
+            // Step 2: Declare a delegate Interest and instantiate the same
+            Interest simpleInterest = CalculateSimpleInterest;
+            Interest compoundInterest = CalculateCompoundInterest;
+            Interest realInterest = CalculateRealInterest;
+
+            // Step 3: Declare variables
+             // Inflation rate
+
+            // Step 4: Declare three methods
+            double CalculateSimpleInterest(double P, double R, double T)
+            {
+                return P * T * R / 100;
+            }
+
+            double CalculateCompoundInterest(double P, double R, double T)
+            {
+                double amount = P * Math.Pow((1 + R / 100), T);
+                return amount - P;
+            }
+
+            double CalculateRealInterest(double P, double R, double T)
+            {
+                double I = 3;
+                double nominalInterest = R;
+                double realInterest = nominalInterest - I;
+                return realInterest;
+            }
+
+            // Calculate and display the interest for each customer
+            for (int i = 0; i < customers.Length; i++)
+            {
+                double P = customers[i][0];
+                double R = customers[i][1];
+                double T = customers[i][2];
+
+                Console.WriteLine($"Customer {i + 1}:");
+
+                // Calculate and display Simple Interest
+                double simpleInterestAmount = simpleInterest(P, R, T);
+                Console.WriteLine($"Simple Interest: {simpleInterestAmount}");
+
+                // Calculate and display Compound Interest
+                double compoundInterestAmount = compoundInterest(P, R, T);
+                Console.WriteLine($"Compound Interest: {compoundInterestAmount}");
+
+                // Calculate and display Real Interest
+                double realInterestAmount = realInterest(P, R, T);
+                Console.WriteLine($"Real Interest: {realInterestAmount}");
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
+    }
+}

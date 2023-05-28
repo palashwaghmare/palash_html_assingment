@@ -1,0 +1,306 @@
+using System;
+using System.Collections.Generic;
+
+namespace MenuDrivenMoviesAssingment
+{
+    public class User
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public List<Movie> FavoriteMovies { get; set; }
+
+        public User(string username, string password, string name, int age)
+        {
+            Username = username;
+            Password = password;
+            Name = name;
+            Age = age;
+            FavoriteMovies = new List<Movie>();
+        }
+    }
+
+    public class Movie
+    {
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public int Year { get; set; }
+        public string Director { get; set; }
+
+        public Movie(string title, string genre, int year, string director)
+        {
+            Title = title;
+            Genre = genre;
+            Year = year;
+            Director = director;
+        }
+    }
+
+    public class Program
+    {
+        private static List<Movie> movieList = new List<Movie>();
+        private static List<User> users = new List<User>();
+
+        private static User loggedInUser;
+        private static User admin;
+
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to the Movie Management System!");
+
+            // Create the admin user
+            admin = new User("admin", "admin123", "Admin", 0);
+            users.Add(admin);
+
+            while (true)
+            {
+                Console.WriteLine("==================================");
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Register");
+                Console.WriteLine("3. Exit");
+                Console.WriteLine("==================================");
+                Console.Write("Enter your choice: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Login();
+                        break;
+                    case "2":
+                        Register();
+                        break;
+                    case "3":
+                        Console.WriteLine("Thank you for using the Movie Management System. Goodbye!");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+
+        private static void Login()
+        {
+            Console.Write("Enter your username: ");
+            string username = Console.ReadLine();
+            Console.Write("Enter your password: ");
+            string password = Console.ReadLine();
+
+            loggedInUser = users.Find(user => user.Username.Equals(username) && user.Password.Equals(password));
+
+            if (loggedInUser != null)
+            {
+                Console.WriteLine($"Login successful! Welcome, {loggedInUser.Name}!");
+
+                if (loggedInUser == admin)
+                {
+                    AdminMenu();
+                }
+                else
+                {
+                    UserMenu();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid username or password. Login failed.");
+            }
+        }
+
+        private static void Register()
+        {
+            Console.Write("Enter a username: ");
+            string username = Console.ReadLine();
+            Console.Write("Enter a password: ");
+            string password = Console.ReadLine();
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter your age: ");
+            int age = Convert.ToInt32(Console.ReadLine());
+
+            User newUser = new User(username, password, name, age);
+            users.Add(newUser);
+
+            Console.WriteLine("Registration successful!");
+        }
+
+        private static void AdminMenu()
+        {
+            while (true)
+            {
+                Console.WriteLine("==================================");
+                Console.WriteLine("1. Add Movie");
+                Console.WriteLine("2. Delete Movie");
+                Console.WriteLine("3. View Movies");
+                Console.WriteLine("4. Logout");
+                Console.WriteLine("==================================");
+                Console.Write("Enter your choice: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        AddMovie();
+                        break;
+                    case "2":
+                        DeleteMovie();
+                        break;
+                    case "3":
+                        ViewMovies();
+                        break;
+                    case "4":
+                        Console.WriteLine("Logged out successfully.");
+                        loggedInUser = null;
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+
+        private static void UserMenu()
+        {
+            while (true)
+            {
+                Console.WriteLine("==================================");
+                Console.WriteLine("1. View Movies");
+                Console.WriteLine("2. Add to Favorites");
+                Console.WriteLine("3. Remove from Favorites");
+                Console.WriteLine("4. View Favorite Movies");
+                Console.WriteLine("5. Logout");
+                Console.WriteLine("==================================");
+                Console.Write("Enter your choice: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        ViewMovies();
+                        break;
+                    case "2":
+                        AddToFavorites();
+                        break;
+                    case "3":
+                        RemoveFromFavorites();
+                        break;
+                    case "4":
+                        ViewFavoriteMovies();
+                        break;
+                    case "5":
+                        Console.WriteLine("Logged out successfully.");
+                        loggedInUser = null;
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+
+        private static void AddMovie()
+        {
+            Console.Write("Enter the title of the movie: ");
+            string title = Console.ReadLine();
+            Console.Write("Enter the genre of the movie: ");
+            string genre = Console.ReadLine();
+            Console.Write("Enter the year of release: ");
+            int year = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter the director of the movie: ");
+            string director = Console.ReadLine();
+
+            Movie movie = new Movie(title, genre, year, director);
+            movieList.Add(movie);
+
+            Console.WriteLine("Movie added successfully.");
+        }
+
+        private static void DeleteMovie()
+        {
+            Console.Write("Enter the title of the movie to delete: ");
+            string title = Console.ReadLine();
+
+            Movie movie = movieList.Find(m => m.Title.Equals(title));
+
+            if (movie != null)
+            {
+                movieList.Remove(movie);
+                Console.WriteLine("Movie deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Movie not found.");
+            }
+        }
+
+        private static void ViewMovies()
+        {
+            if (movieList.Count > 0)
+            {
+                Console.WriteLine("Movie List:");
+                foreach (var movie in movieList)
+                {
+                    Console.WriteLine($"Title: {movie.Title}\tGenre: {movie.Genre}\tYear: {movie.Year}\tDirector: {movie.Director}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No movies available.");
+            }
+        }
+
+        private static void AddToFavorites()
+        {
+            Console.Write("Enter the title of the movie to add to favorites: ");
+            string title = Console.ReadLine();
+
+            Movie movie = movieList.Find(m => m.Title.Equals(title));
+
+            if (movie != null)
+            {
+                loggedInUser.FavoriteMovies.Add(movie);
+                Console.WriteLine($"Movie '{movie.Title}' added to favorites.");
+            }
+            else
+            {
+                Console.WriteLine("Movie not found.");
+            }
+        }
+
+        private static void RemoveFromFavorites()
+        {
+            Console.Write("Enter the title of the movie to remove from favorites: ");
+            string title = Console.ReadLine();
+
+            Movie movie = loggedInUser.FavoriteMovies.Find(m => m.Title.Equals(title));
+
+            if (movie != null)
+            {
+                loggedInUser.FavoriteMovies.Remove(movie);
+                Console.WriteLine($"Movie '{movie.Title}' removed from favorites.");
+            }
+            else
+            {
+                Console.WriteLine("Movie not found in favorites.");
+            }
+        }
+
+        private static void ViewFavoriteMovies()
+        {
+            if (loggedInUser.FavoriteMovies.Count > 0)
+            {
+                Console.WriteLine($"Favorite Movies for {loggedInUser.Name}:");
+                foreach (var movie in loggedInUser.FavoriteMovies)
+                {
+                    Console.WriteLine($"Title: {movie.Title}\tGenre: {movie.Genre}\tYear: {movie.Year}\tDirector: {movie.Director}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No favorite movies available.");
+            }
+        }
+    }
+}

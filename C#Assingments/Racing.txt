@@ -1,0 +1,76 @@
+using System;
+
+namespace RaceingGame
+{
+    public delegate void RaceEventHandler(string message);
+
+    public class RaceyGame
+    {
+        public event RaceEventHandler Successful;
+        public event RaceEventHandler Unsuccessful;
+
+        public void StartGame()
+        {
+            int obstacleCount = 0;
+            int crashCount = 0;
+
+            while (obstacleCount < 10 && crashCount < 3)
+            {
+                Console.WriteLine("Race started!");
+
+                // game logic
+                bool crashed = new Random().Next(10) < 3; 
+
+                if (crashed)
+                {
+                    Console.WriteLine("Crash!");
+                    crashCount++;
+                    Unsuccessful?.Invoke($"You crashed {crashCount} time(s).");
+                }
+                else
+                {
+                    obstacleCount++;
+                    Console.WriteLine("Obstacle cleared!");
+                    Successful?.Invoke($"You crossed {obstacleCount} obstacle(s).");
+
+                    if (obstacleCount >= 10)
+                    {
+                        Console.WriteLine("Congratulations! You cleared all obstacles.");
+                    }
+                }
+
+                Console.WriteLine();
+            }
+
+            if (crashCount >= 3)
+            {
+                Console.WriteLine("Game over! You have been disqualified.");
+            }
+
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
+    }
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            RaceyGame raceyGame = new RaceyGame();
+            raceyGame.Successful += HandleSuccessful;
+            raceyGame.Unsuccessful += HandleUnsuccessful;
+
+            raceyGame.StartGame();
+        }
+
+        private static void HandleSuccessful(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        private static void HandleUnsuccessful(string message)
+        {
+            Console.WriteLine(message);
+        }
+    }
+}
